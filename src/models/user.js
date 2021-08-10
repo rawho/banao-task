@@ -18,6 +18,13 @@ const UserSchema = new mongoose.Schema({
             }
         }
     },
+    emailToken: {
+        type: String
+    },
+    verifiedForPasswordReset: {
+        type: Boolean,
+        default: false
+    },
     password: {
         type: String,
         required: true
