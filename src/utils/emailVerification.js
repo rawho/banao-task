@@ -20,7 +20,7 @@ const emailVerification = async(req, res) => {
     
     try{
         const msg = {
-            from: 'Banao<banao@gmail.com>',
+            from: `Banao <${process.env.EMAIL_USERNAME}>`,
             to: email,
             subject: 'Reset password link',
             text: `
