@@ -5,8 +5,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const emailVerification = require("../utils/emailVerification");
 
-// <-------------Register----------------->
-
+// =============== Register ================================
 router.post("/api/register", async (req, res) => {
     console.log("recieved a post request for register");
     const { username, email, password: plainTextPassword } = req.body;
@@ -16,11 +15,12 @@ router.post("/api/register", async (req, res) => {
 
     // Creating the user in the database
     try {
-        await User.create({
+        const user = await User.create({
             username,
             password,
             email,
         });
+        console.log(`User Created Successfully : ${user.username} - ${user.email}`)
     } catch (error) {
         if (error.code === 11000 && error.errmsg.includes("email")) {
             return res.json({
