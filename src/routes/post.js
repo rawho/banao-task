@@ -31,7 +31,7 @@ router.post('/api/post', auth,  async(req, res) => {
 router.put('/api/post/:id', auth, async(req, res) => {
     try{
         const post = await Post.findById(req.params.id)
-        if(post.userId == req.user._id){
+        if(JSON.stringify(post.userId) === JSON.stringify(req.user._id)){
             await post.updateOne({$set: req.body})
             res.status(200).json({
                 status: 'ok',
@@ -44,6 +44,7 @@ router.put('/api/post/:id', auth, async(req, res) => {
             })
         }
     } catch (err) {
+        console.log(err)
         res.status(500).json({
             status: "error",
             msg: err
