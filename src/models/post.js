@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
-
+const {ObjectId} = mongoose.Schema.Types
 const PostSchema = new mongoose.Schema({
     userId: {
-        type: String,
+        type: ObjectId,
+        ref: "User",
         required: true
     }, 
     desc: {
@@ -15,7 +16,14 @@ const PostSchema = new mongoose.Schema({
     likes: {
         type: Array,
         default: []
-    }
+    },
+    comments: [{
+        comment: String,
+        postedBy: {
+            type: ObjectId,
+            ref: "User"
+        }
+    }]
 
 }, {timestamps: true})
 

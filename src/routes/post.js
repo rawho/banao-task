@@ -118,6 +118,28 @@ router.get('/api/post/:id', async (req, res) => {
     }
 })
 
+// Comments
+router.put('/api/post/:id/comment', auth, async (req, res) => {
+    const commentObj = {
+        comment: req.body.comment,
+        postedBy: req.user._id
+    }
+
+    try{
+        const post = await Post.findById(req.params.id)
+        await post.updateOne({$push: {comments: commentObj}})
+        res.status(200).json({
+            status: "ok",
+            msg: "Commented successfully"
+        })
+    } catch (err) {
+        res.status(500).json({
+            status: "error",
+            msg: err
+        })
+    }
+})
+
 
 
 module.exports = router
