@@ -56,7 +56,7 @@ router.put('/api/post/:id', auth, async(req, res) => {
 router.delete('/api/post/:id', auth, async(req, res) => {
     try{
         const post = await Post.findById(req.params.id)
-        if(JSON.stringify(post.userId) === JSON.stringify(req.user._id){
+        if(JSON.stringify(post.userId) === JSON.stringify(req.user._id)){
             await post.deleteOne()
             res.status(200).json({
                 status: 'ok',
